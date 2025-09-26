@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local ="clr-namespace:WeatherAPI_MAUI.ViewModels"
+             x:Class="WeatherAPI_MAUI.Views.ForecastPage"
+             Title="ForecastPage">
+
+    <ContentPage.BindingContext>
+        <local:MainViewModel/>
+    </ContentPage.BindingContext>
+
+
+    <VerticalStackLayout Spacing="0" Padding="0" Margin="0">
+        <CollectionView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ItemsSource="{Binding CvForecast}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="90,110,auto,auto,auto" RowDefinitions="*" BackgroundColor="Black"
+                      HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid.GestureRecognizers>
+                            <SwipeGestureRecognizer Direction="Right" Swiped="Swiped"/>
+                        </Grid.GestureRecognizers>
+
+                        <Image Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="80" Source="{Binding day.condition.fullicon}"/>
+                        <Label Grid.Column="3" FontSize="Large" HorizontalOptions="End" Text="{Binding day.maxtemperature, StringFormat='{}{0:F0}/'}" TextColor="BlanchedAlmond" VerticalOptions="Center"/>
+                        <Label Grid.Column="4" FontSize="Large" HorizontalOptions="Start" Text="{Binding day.mintemperature, StringFormat='{}{0:F0}°С'}" TextColor="BlanchedAlmond" VerticalOptions="Center"/>
+                        <Label Grid.Column="0" FontSize="Small" HorizontalOptions="End" Text="{Binding FormattedDate}" TextColor="BlanchedAlmond" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" FontSize="Small" HorizontalOptions="Start" Text="{Binding WeekDay}" TextColor="BlanchedAlmond" VerticalOptions="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
